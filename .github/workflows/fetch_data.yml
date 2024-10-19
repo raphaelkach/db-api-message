@@ -2,9 +2,9 @@ name: Daten abrufen und speichern
 
 on:
   schedule:
-    - cron: '*/1 * * * *'  # Jede Minute ausführen
+    - cron: '*/5 * * * *'  # Läuft alle 5 Minuten
     - cron: '5 0 * * *'        # Läuft täglich um 00:05 Uhr
-  workflow_dispatch:
+  workflow_dispatch:           # Ermöglicht manuelles Starten
 
 jobs:
   fetch-and-save:
