@@ -10,7 +10,7 @@ on:
       - 'data/**'
 
 permissions:
-  contents: write  # Berechtigung zum Schreiben von Änderungen ins Repository
+  contents: write
 
 jobs:
   fetch-and-write-data:
