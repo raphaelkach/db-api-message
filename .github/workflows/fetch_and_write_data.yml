@@ -2,7 +2,7 @@ name: Daten abrufen und schreiben
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '0 * * * *'
   push:
     branches:
       - main
