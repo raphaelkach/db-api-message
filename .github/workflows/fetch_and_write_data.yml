@@ -1,0 +1,30 @@
+name: Daten abrufen und schreiben
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  fetch-and-write-data:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Repository auschecken
+      uses: actions/checkout@v3
+
+    - name: Python einrichten
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Abhängigkeiten installieren
+      run: pip install requests
+
+    - name: Skript ausführen
+      run: python fetch_data.py
+
+    - name: Artefakte hochladen
+      uses: actions/upload-artifact@v3
+      with:
+        name: Daten
+        path: data/
