@@ -1,7 +1,11 @@
 name: Daten abrufen und schreiben
 
 on:
-  workflow_dispatch:  # Ermöglicht das manuelle Auslösen des Workflows
+  schedule:
+    - cron: '*/5 * * * *'
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -20,7 +24,6 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-
     - name: Python einrichten
       uses: actions/setup-python@v4
       with:
@@ -38,14 +41,3 @@ jobs:
         timestamp=$(date "+%Y-%m-%d %H:%M:%S")
         git commit -m "Automatisches Update der Daten: $timestamp" || exit 0
         git push origin HEAD:main
-
-    - name: 5 Minuten warten
-      run: sleep 300
-
-    - name: Workflow erneut auslösen
-      run: |
-        curl -X POST \
-        -H "Accept: application/vnd.github+json" \
-        -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-        https://api.github.com/repos/${{ github.repository }}/actions/workflows/fetch_and_write_data.yml/dispatches \
-        -d '{"ref":"main"}'
