@@ -1,13 +1,10 @@
 name: Daten abrufen und schreiben
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - 'data/**'
+  workflow_run:
+    workflows: ["Daten abrufen und schreiben"]
+    types:
+      - completed
 
 permissions:
   contents: write
@@ -44,3 +41,6 @@ jobs:
         timestamp=$(date "+%Y-%m-%d %H:%M:%S")
         git commit -m "Automatisches Update der Daten: $timestamp" || exit 0
         git push origin HEAD:main
+
+    - name: 5 Minuten warten
+      run: sleep 300
