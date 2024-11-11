@@ -15,5 +15,3 @@ combined_df = pd.concat(dataframes, ignore_index=True)
 
 output_path = 'combined_data.csv'
 combined_df.to_csv(output_path, index=False, sep=';')
-
-output_path
